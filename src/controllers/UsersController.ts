@@ -12,7 +12,7 @@ class UsersController {
 
         const user = await createUser.execute(request.body);
 
-        return response.json(user);
+        return response.json({ ...user, password: undefined });
     }
 }
 
