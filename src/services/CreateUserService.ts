@@ -1,4 +1,5 @@
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
+import { AppError } from "../errors/AppError";
 import { IUsersRepository } from "../repositories/IUsersRepository";
 
 export default class CreateUserService {
@@ -6,9 +7,14 @@ export default class CreateUserService {
 
     async execute({ email, nickname, password }: ICreateUserDTO) {
         const userWithEmail = await this.usersRepository.findByEmail(email);
+        nickname = nickname.trim();
+
+        if (nickname.includes(" ")) {
+            throw new AppError("Nickname cannot contain spaces");
+        }
 
         if (userWithEmail) {
-            throw new Error("Email already used!");
+            throw new AppError("Email already used!");
         }
 
         const userWithNickname = await this.usersRepository.findByNickname(
@@ -16,7 +22,7 @@ export default class CreateUserService {
         );
 
         if (userWithNickname) {
-            throw new Error("Nickname already used!");
+            throw new AppError("Nickname already used!");
         }
 
         const user = await this.usersRepository.create({
