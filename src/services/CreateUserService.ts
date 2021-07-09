@@ -1,4 +1,4 @@
-import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
+import { ICreateUserDTO } from "../modules/users/dtos/ICreateUserDTO";
 import { AppError } from "../errors/AppError";
 import { IUsersRepository } from "../repositories/IUsersRepository";
 import { IHashProvider } from "../container/providers/HashProvider/models/IHashProvider";

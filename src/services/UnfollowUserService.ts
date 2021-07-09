@@ -1,4 +1,4 @@
-import { IFollowUserDTO } from "../dtos/IFollowUserDTO";
+import { IFollowUserDTO } from "../modules/users/dtos/IFollowUserDTO";
 import { AppError } from "../errors/AppError";
 import User from "../models/User";
 

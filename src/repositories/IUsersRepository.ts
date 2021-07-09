@@ -1,5 +1,5 @@
-import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
-import { IUpdateUserDTO } from "../dtos/IUpdateUserDTO";
+import { ICreateUserDTO } from "../modules/users/dtos/ICreateUserDTO";
+import { IUpdateUserDTO } from "../modules/users/dtos/IUpdateUserDTO";
 import { IUser } from "../models/User";
 
 export interface IUsersRepository {

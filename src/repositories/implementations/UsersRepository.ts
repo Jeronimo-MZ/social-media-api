@@ -1,5 +1,5 @@
-import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
-import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
+import { ICreateUserDTO } from "../../modules/users/dtos/ICreateUserDTO";
+import { IUpdateUserDTO } from "../../modules/users/dtos/IUpdateUserDTO";
 import User, { IUser } from "../../models/User";
 import { IUsersRepository } from "../IUsersRepository";
 
