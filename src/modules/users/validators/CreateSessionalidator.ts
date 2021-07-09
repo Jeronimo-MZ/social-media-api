@@ -1,12 +1,11 @@
 import * as Yup from "yup";
-import { AppError } from "../errors/AppError";
+import { AppError } from "../../../errors/AppError";
 
-class CreateUserValidator {
+class CreateSessionValidator {
     async validate(object: Object): Promise<void> {
         const schema = Yup.object({
-            nickname: Yup.string().min(3).max(20).required(),
-            email: Yup.string().email().max(50).required(),
-            password: Yup.string().min(6).max(30).required(),
+            email: Yup.string().email().required(),
+            password: Yup.string().min(6).required(),
         });
 
         try {
@@ -17,4 +16,4 @@ class CreateUserValidator {
     }
 }
 
-export { CreateUserValidator };
+export { CreateSessionValidator };

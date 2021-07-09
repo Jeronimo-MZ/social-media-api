@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import AuthenticateUserService from "../modules/users/services/AuthenticateUserService";
-import { CreateSessionValidator } from "../validators/CreateSessionalidator";
+import { CreateSessionValidator } from "../modules/users/validators/CreateSessionalidator";
 
 class SessionsController {
     async create(request: Request, response: Response): Promise<Response> {
