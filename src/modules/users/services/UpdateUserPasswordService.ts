@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { IHashProvider } from "../../../container/providers/HashProvider/models/IHashProvider";
 import { IUpdateUserPasswordDTO } from "../dtos/IUpdateUserPasswordDTO";
 import { AppError } from "../../../errors/AppError";
-import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { IUsersRepository } from "../repositories/IUsersRepository";
 
 @injectable()
 class UpdateUserPasswordService {

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import UsersRepository from "../repositories/implementations/UsersRepository";
-import { IUsersRepository } from "../repositories/IUsersRepository";
+import UsersRepository from "../modules/users/repositories/implementations/UsersRepository";
+import { IUsersRepository } from "../modules/users/repositories/IUsersRepository";
 import CreateUserService from "../modules/users/services/CreateUserService";
 import { DeleteUserService } from "../modules/users/services/DeleteUserService";
 import { UpdateUserService } from "../modules/users/services/UpdateUserService";

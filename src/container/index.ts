@@ -1,6 +1,6 @@
 import { container } from "tsyringe";
-import UsersRepository from "../repositories/implementations/UsersRepository";
-import { IUsersRepository } from "../repositories/IUsersRepository";
+import UsersRepository from "../modules/users/repositories/implementations/UsersRepository";
+import { IUsersRepository } from "../modules/users/repositories/IUsersRepository";
 
 import "./providers";
 
