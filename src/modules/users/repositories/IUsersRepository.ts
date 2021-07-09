@@ -1,6 +1,6 @@
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
 import { IUpdateUserDTO } from "../dtos/IUpdateUserDTO";
-import { IUser } from "../../../models/User";
+import { IUser } from "../infra/mongoose/models/User";
 
 export interface IUsersRepository {
     create(data: ICreateUserDTO): Promise<IUser>;

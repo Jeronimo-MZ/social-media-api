@@ -1,6 +1,6 @@
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
-import User, { IUser } from "../../../../models/User";
+import User, { IUser } from "../../infra/mongoose/models/User";
 import { IUsersRepository } from "../IUsersRepository";
 
 export default class UsersRepository implements IUsersRepository {
