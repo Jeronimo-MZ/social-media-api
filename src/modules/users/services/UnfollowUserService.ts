@@ -1,5 +1,5 @@
 import { IFollowUserDTO } from "../dtos/IFollowUserDTO";
-import { AppError } from "../../../errors/AppError";
+import { AppError } from "../../../shared/errors/AppError";
 import User from "../../../models/User";
 
 class UnfollowUserService {
