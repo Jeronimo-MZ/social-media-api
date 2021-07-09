@@ -53,8 +53,7 @@ export default class AuthenticateUserService {
         if (!hasPasswordMatched) {
             throw new AppError("Incorrect email/password combination!", 401);
         }
-
-        const token = this.tokenProvider.generateToken(user._id);
+        const token = this.tokenProvider.generateToken(String(user._id));
 
         return {
             user: {

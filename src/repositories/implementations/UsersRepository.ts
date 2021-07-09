@@ -16,7 +16,7 @@ export default class UsersRepository implements IUsersRepository {
 
         const user = await newUser.save();
 
-        return user;
+        return user.toObject();
     }
 
     public async findByEmail(email: string): Promise<IUser | undefined> {

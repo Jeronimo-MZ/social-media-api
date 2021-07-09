@@ -16,7 +16,8 @@ export default class CreateUserService {
 
     async execute({ email, nickname, password }: ICreateUserDTO) {
         const userWithEmail = await this.usersRepository.findByEmail(email);
-        nickname = nickname.trim();
+        nickname = nickname.trim().toLowerCase();
+        email = email.trim().toLowerCase();
 
         if (nickname.includes(" ")) {
             throw new AppError("Nickname cannot contain spaces");
