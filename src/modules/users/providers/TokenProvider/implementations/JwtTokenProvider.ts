@@ -1,6 +1,6 @@
 import { ITokenProvider } from "../models/ITokenProvider";
 import { sign, verify } from "jsonwebtoken";
-import authConfig from "../../../../config/auth";
+import authConfig from "../../../../../config/auth";
 
 interface TokenPayload {
     iat: number;

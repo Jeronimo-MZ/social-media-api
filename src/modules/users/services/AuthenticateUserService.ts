@@ -2,8 +2,8 @@ import { injectable, inject } from "tsyringe";
 import { IUsersRepository } from "../repositories/IUsersRepository";
 import { IUser } from "../infra/mongoose/models/User";
 import { AppError } from "../../../shared/errors/AppError";
-import { IHashProvider } from "../../../container/providers/HashProvider/models/IHashProvider";
-import { ITokenProvider } from "../../../container/providers/TokenProvider/models/ITokenProvider";
+import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
+import { ITokenProvider } from "../providers/TokenProvider/models/ITokenProvider";
 
 interface IRequest {
     email: string;

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { JwtTokenProvider } from "../../../../../container/providers/TokenProvider/implementations/JwtTokenProvider";
-import { ITokenProvider } from "../../../../../container/providers/TokenProvider/models/ITokenProvider";
+import { JwtTokenProvider } from "../../../providers/TokenProvider/implementations/JwtTokenProvider";
+import { ITokenProvider } from "../../../providers/TokenProvider/models/ITokenProvider";
 import { AppError } from "../../../../../shared/errors/AppError";
 
 export default function ensureAuthenticated(
