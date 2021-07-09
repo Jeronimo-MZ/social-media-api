@@ -15,5 +15,6 @@ userRouter.patch(
     ensureAuthenticated,
     userPasswordController.update
 );
+userRouter.delete("/", ensureAuthenticated, usersController.delete);
 
 export { userRouter };

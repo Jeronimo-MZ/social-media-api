@@ -45,4 +45,8 @@ export default class UsersRepository implements IUsersRepository {
 
         return updatedUser?.toObject() || undefined;
     }
+
+    public async delete(user_id: string): Promise<void> {
+        await User.findByIdAndDelete(user_id);
+    }
 }

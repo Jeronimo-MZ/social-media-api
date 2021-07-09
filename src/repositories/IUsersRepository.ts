@@ -11,4 +11,5 @@ export interface IUsersRepository {
         user_id: string,
         newData: IUpdateUserDTO
     ): Promise<IUser | undefined>;
+    delete(user_id: string): Promise<void>;
 }
