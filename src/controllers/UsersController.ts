@@ -14,6 +14,10 @@ class UsersController {
 
         return response.json({ ...user, password: undefined });
     }
+
+    async update(request: Request, response: Response): Promise<Response> {
+        return response.json(request.body.user_id);
+    }
 }
 
 export { UsersController };
