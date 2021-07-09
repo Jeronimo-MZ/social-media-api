@@ -1,9 +1,13 @@
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
 import { AppError } from "../errors/AppError";
 import { IUsersRepository } from "../repositories/IUsersRepository";
+import { IHashProvider } from "../validators/providers/HashProvider/IHashProvider";
 
 export default class CreateUserService {
-    constructor(private usersRepository: IUsersRepository) {}
+    constructor(
+        private usersRepository: IUsersRepository,
+        private hashProvider: IHashProvider
+    ) {}
 
     async execute({ email, nickname, password }: ICreateUserDTO) {
         const userWithEmail = await this.usersRepository.findByEmail(email);
@@ -24,11 +28,10 @@ export default class CreateUserService {
         if (userWithNickname) {
             throw new AppError("Nickname already used!");
         }
-
         const user = await this.usersRepository.create({
             email,
             nickname,
-            password,
+            password: await this.hashProvider.generateHash(password),
         });
 
         return user;
