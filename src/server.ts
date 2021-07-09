@@ -1,5 +1,7 @@
-import dotenv from "dotenv";
+import "reflect-metadata";
 import "express-async-errors";
+import "./container";
+import dotenv from "dotenv";
 dotenv.config();
 
 import "./database";

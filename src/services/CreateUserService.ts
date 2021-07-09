@@ -1,11 +1,16 @@
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
 import { AppError } from "../errors/AppError";
 import { IUsersRepository } from "../repositories/IUsersRepository";
-import { IHashProvider } from "../validators/providers/HashProvider/IHashProvider";
+import { IHashProvider } from "../container/providers/HashProvider/IHashProvider";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 export default class CreateUserService {
     constructor(
+        @inject("UsersRepository")
         private usersRepository: IUsersRepository,
+
+        @inject("HashProvider")
         private hashProvider: IHashProvider
     ) {}
 
