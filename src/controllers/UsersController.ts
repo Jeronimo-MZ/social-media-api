@@ -3,6 +3,7 @@ import { container } from "tsyringe";
 import CreateUserService from "../services/CreateUserService";
 import { UpdateUserService } from "../services/UpdateUserService";
 import { CreateUserValidator } from "../validators/CreateUserValidator";
+import { UpdateUserValidator } from "../validators/UpdateUserValidator";
 
 class UsersController {
     async create(request: Request, response: Response): Promise<Response> {
@@ -17,6 +18,9 @@ class UsersController {
     }
 
     async update(request: Request, response: Response): Promise<Response> {
+        const validator = new UpdateUserValidator();
+        await validator.validate(request.body);
+
         const updateUser = container.resolve(UpdateUserService);
         const updatedUser = await updateUser.execute(
             request.body.user_id,
