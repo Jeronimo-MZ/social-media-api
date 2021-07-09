@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import "express-async-errors";
-import "../../container";
+import "@shared/container";
 import dotenv from "dotenv";
 dotenv.config();
 
