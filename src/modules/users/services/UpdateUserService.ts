@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
-import { IHashProvider } from "../container/providers/HashProvider/models/IHashProvider";
-import { IUpdateUserDTO } from "../modules/users/dtos/IUpdateUserDTO";
-import { AppError } from "../errors/AppError";
-import { IUsersRepository } from "../repositories/IUsersRepository";
+import { IHashProvider } from "../../../container/providers/HashProvider/models/IHashProvider";
+import { IUpdateUserDTO } from "../dtos/IUpdateUserDTO";
+import { AppError } from "../../../errors/AppError";
+import { IUsersRepository } from "../../../repositories/IUsersRepository";
 
 @injectable()
 class UpdateUserService {

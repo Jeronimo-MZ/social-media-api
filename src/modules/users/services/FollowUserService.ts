@@ -1,6 +1,6 @@
-import { IFollowUserDTO } from "../modules/users/dtos/IFollowUserDTO";
-import { AppError } from "../errors/AppError";
-import User from "../models/User";
+import { IFollowUserDTO } from "../dtos/IFollowUserDTO";
+import { AppError } from "../../../errors/AppError";
+import User from "../../../models/User";
 
 class FollowUserService {
     public async execute({ user_id, followed_user_id }: IFollowUserDTO) {

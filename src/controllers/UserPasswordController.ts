@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { UpdateUserPasswordService } from "../services/UpdateUserPasswordService";
+import { UpdateUserPasswordService } from "../modules/users/services/UpdateUserPasswordService";
 import { UpdateUserPasswordValidator } from "../validators/UpdateUserPasswordValidator";
 
 class UserPasswordController {

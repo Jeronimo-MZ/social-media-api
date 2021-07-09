@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import AuthenticateUserService from "../services/AuthenticateUserService";
+import AuthenticateUserService from "../modules/users/services/AuthenticateUserService";
 import { CreateSessionValidator } from "../validators/CreateSessionalidator";
 
 class SessionsController {

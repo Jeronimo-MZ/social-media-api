@@ -1,9 +1,9 @@
 import { injectable, inject } from "tsyringe";
-import { IUsersRepository } from "../repositories/IUsersRepository";
-import { IUser } from "../models/User";
-import { AppError } from "../errors/AppError";
-import { IHashProvider } from "../container/providers/HashProvider/models/IHashProvider";
-import { ITokenProvider } from "../container/providers/TokenProvider/models/ITokenProvider";
+import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { IUser } from "../../../models/User";
+import { AppError } from "../../../errors/AppError";
+import { IHashProvider } from "../../../container/providers/HashProvider/models/IHashProvider";
+import { ITokenProvider } from "../../../container/providers/TokenProvider/models/ITokenProvider";
 
 interface IRequest {
     email: string;
