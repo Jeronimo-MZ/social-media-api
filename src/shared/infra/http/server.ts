@@ -4,7 +4,7 @@ import "../../../container";
 import dotenv from "dotenv";
 dotenv.config();
 
-import "../../../database";
+import "../mongoose";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
