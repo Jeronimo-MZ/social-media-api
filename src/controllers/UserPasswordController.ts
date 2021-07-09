@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { UpdateUserPasswordService } from "../services/UpdateUserPasswordService";
+import { UpdateUserPasswordValidator } from "../validators/UpdateUserPasswordValidator";
 
 class UserPasswordController {
     async update(request: Request, response: Response): Promise<Response> {
+        const validator = new UpdateUserPasswordValidator();
+        await validator.validate(request.body);
+
         const updateUserPassword = container.resolve(UpdateUserPasswordService);
         const updatedUser = await updateUserPassword.execute(
             request.body.user_id,
