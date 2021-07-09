@@ -5,7 +5,7 @@ import authConfig from "../../../../config/auth";
 interface TokenPayload {
     iat: number;
     exp: number;
-    user_id: string;
+    sub: string;
 }
 
 class JwtTokenProvider implements ITokenProvider {
@@ -16,8 +16,8 @@ class JwtTokenProvider implements ITokenProvider {
      */
     getDataOrFail(token: string): string {
         const decoded = verify(token, authConfig.secret);
-        const { user_id } = decoded as TokenPayload;
-        return user_id;
+        const { sub } = decoded as TokenPayload;
+        return sub;
     }
     generateToken(user_id: string): string {
         const { secret, expiresIn } = authConfig;
