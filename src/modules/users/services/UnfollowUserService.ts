@@ -1,6 +1,6 @@
-import { IFollowUserDTO } from "../dtos/IFollowUserDTO";
-import { AppError } from "../../../shared/errors/AppError";
-import User from "../infra/mongoose/models/User";
+import { IFollowUserDTO } from "@modules/users/dtos/IFollowUserDTO";
+import { AppError } from "@shared/errors/AppError";
+import User from "@modules/users/infra/mongoose/models/User";
 
 class UnfollowUserService {
     public async execute({ user_id, followed_user_id }: IFollowUserDTO) {

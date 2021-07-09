@@ -1,9 +1,8 @@
 import { injectable, inject } from "tsyringe";
-import { IUsersRepository } from "../repositories/IUsersRepository";
-import { IUser } from "../infra/mongoose/models/User";
-import { AppError } from "../../../shared/errors/AppError";
-import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
-import { ITokenProvider } from "../providers/TokenProvider/models/ITokenProvider";
+import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
+import { AppError } from "@shared/errors/AppError";
+import { IHashProvider } from "@modules/users/providers/HashProvider/models/IHashProvider";
+import { ITokenProvider } from "@modules/users/providers/TokenProvider/models/ITokenProvider";
 
 interface IRequest {
     email: string;

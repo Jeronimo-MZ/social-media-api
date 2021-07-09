@@ -1,7 +1,7 @@
-import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
-import { AppError } from "../../../shared/errors/AppError";
-import { IUsersRepository } from "../repositories/IUsersRepository";
-import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
+import { ICreateUserDTO } from "@modules/users/dtos/ICreateUserDTO";
+import { AppError } from "@shared/errors/AppError";
+import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
+import { IHashProvider } from "@modules/users/providers/HashProvider/models/IHashProvider";
 import { inject, injectable } from "tsyringe";
 
 @injectable()

@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { AppError } from "../../../shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 class CreateUserValidator {
     async validate(object: Object): Promise<void> {

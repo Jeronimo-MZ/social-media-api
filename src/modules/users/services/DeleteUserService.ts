@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
-import { AppError } from "../../../shared/errors/AppError";
-import { IUsersRepository } from "../repositories/IUsersRepository";
+import { IHashProvider } from "@modules/users/providers/HashProvider/models/IHashProvider";
+import { AppError } from "@shared/errors/AppError";
+import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 
 @injectable()
 class DeleteUserService {

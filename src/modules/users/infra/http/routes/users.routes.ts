@@ -3,7 +3,6 @@ import { FollowersController } from "../controllers/FollowersController";
 import { UserPasswordController } from "../controllers/UserPasswordController";
 import { UsersController } from "../controllers/UsersController";
 import ensureAuthenticated from "../middlewares/EnsureAuthenticated";
-("../middlewares/EnsureAuthenticated");
 
 const userRouter = Router();
 const usersController = new UsersController();
