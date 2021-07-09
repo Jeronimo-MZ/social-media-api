@@ -6,6 +6,7 @@ import CreateUserService from "../services/CreateUserService";
 import { DeleteUserService } from "../services/DeleteUserService";
 import { UpdateUserService } from "../services/UpdateUserService";
 import { CreateUserValidator } from "../validators/CreateUserValidator";
+import { DeleteUserValidator } from "../validators/DeleteUserValidator";
 import { UpdateUserValidator } from "../validators/UpdateUserValidator";
 
 class UsersController {
@@ -41,8 +42,8 @@ class UsersController {
     }
 
     async delete(request: Request, response: Response): Promise<Response> {
-        // const validator = new UpdateUserValidator();
-        // await validator.validate(request.body);
+        const validator = new DeleteUserValidator();
+        await validator.validate(request.body);
 
         const deleteUser = container.resolve(DeleteUserService);
         await deleteUser.execute(request.body.user_id, request.body.password);
