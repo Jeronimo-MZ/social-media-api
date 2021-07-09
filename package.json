@@ -1,7 +1,11 @@
 {
     "name": "node-rest-api",
     "version": "1.0.0",
-    "main": "src/index.js",
+    "main": "src/server.ts",
+    "author": {
+        "name": "Jerónimo Matavel",
+        "url": "https://github.com/jeronimo-mz"
+    },
     "license": "MIT",
     "scripts": {
         "dev": "tsnd --inspect --transpile-only --ignore-watch node_modules src/server.ts"
