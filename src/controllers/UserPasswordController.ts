@@ -1,0 +1,17 @@
+import { Request, Response } from "express";
+import { container } from "tsyringe";
+import { UpdateUserPasswordService } from "../services/UpdateUserPasswordService";
+
+class UserPasswordController {
+    async update(request: Request, response: Response): Promise<Response> {
+        const updateUserPassword = container.resolve(UpdateUserPasswordService);
+        const updatedUser = await updateUserPassword.execute(
+            request.body.user_id,
+            request.body
+        );
+
+        return response.json({ user: { ...updatedUser, password: undefined } });
+    }
+}
+
+export { UserPasswordController };

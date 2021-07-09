@@ -17,7 +17,6 @@ class UsersController {
     }
 
     async update(request: Request, response: Response): Promise<Response> {
-        console.log(request.body);
         const updateUser = container.resolve(UpdateUserService);
         const updatedUser = await updateUser.execute(
             request.body.user_id,

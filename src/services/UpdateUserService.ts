@@ -8,17 +8,13 @@ import { IUsersRepository } from "../repositories/IUsersRepository";
 class UpdateUserService {
     constructor(
         @inject("UsersRepository")
-        private usersRepository: IUsersRepository,
-
-        @inject("HashProvider")
-        private hashProvider: IHashProvider
+        private usersRepository: IUsersRepository
     ) {}
     async execute(
         user_id: string,
         {
             email,
             nickname,
-            password,
             city,
             coverPicture,
             description,
@@ -52,9 +48,6 @@ class UpdateUserService {
                 throw new AppError("Nickname already used!");
             }
         }
-        if (password) {
-            password = await this.hashProvider.generateHash(password);
-        }
 
         if (relationship) {
             if (relationship <= 0 || relationship > 3) {
@@ -65,7 +58,6 @@ class UpdateUserService {
         return await this.usersRepository.update(user_id, {
             email: email || user.email,
             nickname: nickname || user.nickname,
-            password: password || user.password,
             city: city || user.city,
             coverPicture: coverPicture || user.coverPicture,
             description: description || user.description,
