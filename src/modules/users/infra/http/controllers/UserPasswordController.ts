@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { UpdateUserPasswordService } from "../modules/users/services/UpdateUserPasswordService";
-import { UpdateUserPasswordValidator } from "../modules/users/validators/UpdateUserPasswordValidator";
+import { UpdateUserPasswordService } from "../../../services/UpdateUserPasswordService";
+import { UpdateUserPasswordValidator } from "../../../validators/UpdateUserPasswordValidator";
 
 class UserPasswordController {
     async update(request: Request, response: Response): Promise<Response> {

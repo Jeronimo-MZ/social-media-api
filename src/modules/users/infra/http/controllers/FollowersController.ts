@@ -1,6 +1,6 @@
-import { FollowUserService } from "../modules/users/services/FollowUserService";
+import { FollowUserService } from "../../../services/FollowUserService";
 import { Request, Response } from "express";
-import { UnfollowUserService } from "../modules/users/services/UnfollowUserService";
+import { UnfollowUserService } from "../../../services/UnfollowUserService";
 
 class FollowersController {
     async create(request: Request, response: Response): Promise<Response> {

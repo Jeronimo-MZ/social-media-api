@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import UsersRepository from "../modules/users/repositories/implementations/UsersRepository";
-import { IUsersRepository } from "../modules/users/repositories/IUsersRepository";
-import CreateUserService from "../modules/users/services/CreateUserService";
-import { DeleteUserService } from "../modules/users/services/DeleteUserService";
-import { UpdateUserService } from "../modules/users/services/UpdateUserService";
-import { CreateUserValidator } from "../modules/users/validators/CreateUserValidator";
-import { DeleteUserValidator } from "../modules/users/validators/DeleteUserValidator";
-import { UpdateUserValidator } from "../modules/users/validators/UpdateUserValidator";
+import UsersRepository from "../../../repositories/implementations/UsersRepository";
+import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import CreateUserService from "../../../services/CreateUserService";
+import { DeleteUserService } from "../../../services/DeleteUserService";
+import { UpdateUserService } from "../../../services/UpdateUserService";
+import { CreateUserValidator } from "../../../validators/CreateUserValidator";
+import { DeleteUserValidator } from "../../../validators/DeleteUserValidator";
+import { UpdateUserValidator } from "../../../validators/UpdateUserValidator";
 
 class UsersController {
     async show(request: Request, response: Response): Promise<Response> {

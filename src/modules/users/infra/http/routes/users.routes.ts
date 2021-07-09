@@ -2,7 +2,7 @@ import { Router } from "express";
 import { FollowersController } from "../controllers/FollowersController";
 import { UserPasswordController } from "../controllers/UserPasswordController";
 import { UsersController } from "../controllers/UsersController";
-import ensureAuthenticated from "../modules/users/infra/http/middlewares/EnsureAuthenticated";
+import ensureAuthenticated from "../middlewares/EnsureAuthenticated";
 ("../middlewares/EnsureAuthenticated");
 
 const userRouter = Router();
