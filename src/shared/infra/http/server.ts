@@ -9,7 +9,7 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import { router } from "../../../routes";
-import { handleErrors } from "../../../middlewares/handleErrors";
+import { handleErrors } from "./middlewares/handleErrors";
 
 const app = express();
 const PORT = process.env.PORT || 3333;
