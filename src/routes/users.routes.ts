@@ -8,6 +8,7 @@ const userRouter = Router();
 const usersController = new UsersController();
 const userPasswordController = new UserPasswordController();
 
+userRouter.get("/me", ensureAuthenticated, usersController.show);
 userRouter.post("/", usersController.create);
 userRouter.patch("/", ensureAuthenticated, usersController.update);
 userRouter.patch(

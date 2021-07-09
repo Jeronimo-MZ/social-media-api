@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import UsersRepository from "../repositories/implementations/UsersRepository";
+import { IUsersRepository } from "../repositories/IUsersRepository";
 import CreateUserService from "../services/CreateUserService";
 import { DeleteUserService } from "../services/DeleteUserService";
 import { UpdateUserService } from "../services/UpdateUserService";
@@ -7,6 +9,13 @@ import { CreateUserValidator } from "../validators/CreateUserValidator";
 import { UpdateUserValidator } from "../validators/UpdateUserValidator";
 
 class UsersController {
+    async show(request: Request, response: Response): Promise<Response> {
+        const usersRepository: IUsersRepository = new UsersRepository();
+        return response.json({
+            user: await usersRepository.findById(request.body.user_id),
+        });
+    }
+
     async create(request: Request, response: Response): Promise<Response> {
         const createUser = container.resolve(CreateUserService);
         const validator = new CreateUserValidator();
