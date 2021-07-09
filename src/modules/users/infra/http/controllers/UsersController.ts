@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import UsersRepository from "../../../repositories/implementations/UsersRepository";
+import UsersRepository from "../../mongoose/repositories/implementations/UsersRepository";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import CreateUserService from "../../../services/CreateUserService";
 import { DeleteUserService } from "../../../services/DeleteUserService";
