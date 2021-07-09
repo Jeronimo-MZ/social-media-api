@@ -11,6 +11,7 @@ interface IRequest {
 }
 interface IResponse {
     user: {
+        _id: string;
         nickname: string;
         email: string;
         profilePicture?: string;
@@ -18,6 +19,10 @@ interface IResponse {
         followers?: string[];
         followings?: string[];
         isAdmin?: boolean;
+        description?: string;
+        city?: string;
+        hometown?: string;
+        relationship: 1 | 2 | 3;
     };
     token: string;
 }
@@ -49,10 +54,11 @@ export default class AuthenticateUserService {
             throw new AppError("Incorrect email/password combination!", 401);
         }
 
-        const token = this.tokenProvider.generateToken(user.email);
+        const token = this.tokenProvider.generateToken(user._id);
 
         return {
             user: {
+                _id: user._id,
                 nickname: user.nickname,
                 email: user.email,
                 profilePicture: user.profilePicture,
@@ -60,6 +66,10 @@ export default class AuthenticateUserService {
                 followers: user.followers,
                 followings: user.followings,
                 isAdmin: user.isAdmin,
+                description: user.description,
+                city: user.city,
+                hometown: user.hometown,
+                relationship: user.relationship,
             },
             token,
         };

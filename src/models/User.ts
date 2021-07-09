@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 
 export interface IUser {
+    _id: string;
     nickname: string;
     email: string;
     password: string;
@@ -9,6 +10,10 @@ export interface IUser {
     followers?: string[];
     followings?: string[];
     isAdmin?: boolean;
+    description?: string;
+    city?: string;
+    hometown?: string;
+    relationship: 1 | 2 | 3;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -52,6 +57,19 @@ const UserSchema = new Schema<IUser>(
             type: Boolean,
             default: false,
         },
+        description: {
+            type: String,
+            max: 100,
+        },
+        city: {
+            type: String,
+            max: 50,
+        },
+        hometown: {
+            type: String,
+            max: 50,
+        },
+        relationship: { type: Number, enum: [1, 2, 3], default: 1 },
     },
     {
         timestamps: true,
