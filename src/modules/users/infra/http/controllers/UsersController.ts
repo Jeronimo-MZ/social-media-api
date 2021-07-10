@@ -13,7 +13,10 @@ class UsersController {
     async show(request: Request, response: Response): Promise<Response> {
         const usersRepository: IUsersRepository = new UsersRepository();
         return response.json({
-            user: await usersRepository.findById(request.body.user_id),
+            user: {
+                ...(await usersRepository.findById(request.body.user_id)),
+                password: undefined,
+            },
         });
     }
 
