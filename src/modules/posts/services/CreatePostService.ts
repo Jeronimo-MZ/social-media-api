@@ -2,6 +2,7 @@ import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppError";
 import { injectable, inject } from "tsyringe";
 import { ICreatePostDTO } from "../dtos/ICreatePostDTO";
+import { IPost } from "../infra/mongoose/models/Post";
 import { IPostsRepository } from "../repositories/IPostsRepository";
 
 @injectable()
@@ -11,10 +12,10 @@ class CreatePostService {
         private postsRepository: IPostsRepository,
 
         @inject("UsersRepository")
-        private usersRepository: IUsersRepository
+        private usersRepository: IUsersRepository,
     ) {}
 
-    async execute(data: ICreatePostDTO) {
+    async execute(data: ICreatePostDTO): Promise<IPost> {
         const user = await this.usersRepository.findById(data.user_id);
 
         if (!user) {

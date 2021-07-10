@@ -11,7 +11,7 @@ class UserPasswordController {
         const updateUserPassword = container.resolve(UpdateUserPasswordService);
         const updatedUser = await updateUserPassword.execute(
             request.body.user_id,
-            request.body
+            request.body,
         );
 
         return response.json({ user: { ...updatedUser, password: undefined } });

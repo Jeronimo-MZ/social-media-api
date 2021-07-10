@@ -3,6 +3,7 @@ import { IHashProvider } from "@modules/users/providers/HashProvider/models/IHas
 import { IUpdateUserPasswordDTO } from "@modules/users/dtos/IUpdateUserPasswordDTO";
 import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
+import { IUser } from "../infra/mongoose/models/User";
 
 @injectable()
 class UpdateUserPasswordService {
@@ -11,12 +12,12 @@ class UpdateUserPasswordService {
         private usersRepository: IUsersRepository,
 
         @inject("HashProvider")
-        private hashProvider: IHashProvider
+        private hashProvider: IHashProvider,
     ) {}
     async execute(
         user_id: string,
-        { oldPassword, newPassword }: IUpdateUserPasswordDTO
-    ) {
+        { oldPassword, newPassword }: IUpdateUserPasswordDTO,
+    ): Promise<IUser | undefined> {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
@@ -30,7 +31,7 @@ class UpdateUserPasswordService {
         }
 
         const hashedPassword = await this.hashProvider.generateHash(
-            newPassword
+            newPassword,
         );
 
         return await this.usersRepository.update(user_id, {

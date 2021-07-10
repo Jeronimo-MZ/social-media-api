@@ -9,7 +9,7 @@ export interface IUsersRepository {
     findById(id: string): Promise<IUser | undefined>;
     update(
         user_id: string,
-        newData: IUpdateUserDTO
+        newData: IUpdateUserDTO,
     ): Promise<IUser | undefined>;
     delete(user_id: string): Promise<void>;
 }

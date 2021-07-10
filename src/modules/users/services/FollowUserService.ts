@@ -3,7 +3,10 @@ import { AppError } from "@shared/errors/AppError";
 import User from "@modules/users/infra/mongoose/models/User";
 
 class FollowUserService {
-    public async execute({ user_id, followed_user_id }: IFollowUserDTO) {
+    public async execute({
+        user_id,
+        followed_user_id,
+    }: IFollowUserDTO): Promise<void> {
         if (user_id === followed_user_id) {
             throw new AppError("You cannot follow yourself");
         }

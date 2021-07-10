@@ -37,7 +37,7 @@ export default class UsersRepository implements IUsersRepository {
 
     public async update(
         user_id: string,
-        newData: IUpdateUserDTO
+        newData: IUpdateUserDTO,
     ): Promise<IUser | undefined> {
         await User.findByIdAndUpdate(user_id, newData);
 

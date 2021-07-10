@@ -1,16 +1,21 @@
 import { AppError } from "@shared/errors/AppError";
 import { injectable, inject } from "tsyringe";
 import { IUpdatePostDTO } from "../dtos/IUpdatePostDTO";
+import { IPost } from "../infra/mongoose/models/Post";
 import { IPostsRepository } from "../repositories/IPostsRepository";
 
 @injectable()
 class UpdatePostService {
     constructor(
         @inject("PostsRepository")
-        private postsRepository: IPostsRepository
+        private postsRepository: IPostsRepository,
     ) {}
 
-    async execute({ author_id, post_id, content }: IUpdatePostDTO) {
+    async execute({
+        author_id,
+        post_id,
+        content,
+    }: IUpdatePostDTO): Promise<IPost | undefined> {
         const post = await this.postsRepository.findById(post_id);
 
         if (!post) {

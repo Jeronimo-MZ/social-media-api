@@ -3,6 +3,7 @@ import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { IHashProvider } from "@modules/users/providers/HashProvider/models/IHashProvider";
 import { inject, injectable } from "tsyringe";
+import { IUser } from "../infra/mongoose/models/User";
 
 @injectable()
 export default class CreateUserService {
@@ -11,10 +12,14 @@ export default class CreateUserService {
         private usersRepository: IUsersRepository,
 
         @inject("HashProvider")
-        private hashProvider: IHashProvider
+        private hashProvider: IHashProvider,
     ) {}
 
-    async execute({ email, nickname, password }: ICreateUserDTO) {
+    async execute({
+        email,
+        nickname,
+        password,
+    }: ICreateUserDTO): Promise<IUser> {
         const userWithEmail = await this.usersRepository.findByEmail(email);
         nickname = nickname.trim().toLowerCase();
         email = email.trim().toLowerCase();
@@ -28,7 +33,7 @@ export default class CreateUserService {
         }
 
         const userWithNickname = await this.usersRepository.findByNickname(
-            nickname
+            nickname,
         );
 
         if (userWithNickname) {

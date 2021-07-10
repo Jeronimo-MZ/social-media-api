@@ -2,7 +2,7 @@ import * as Yup from "yup";
 import { AppError } from "@shared/errors/AppError";
 
 class DeleteUserValidator {
-    async validate(object: Object): Promise<void> {
+    async validate(object: unknown): Promise<void> {
         const schema = Yup.object({
             password: Yup.string().min(6).max(30).required(),
         });

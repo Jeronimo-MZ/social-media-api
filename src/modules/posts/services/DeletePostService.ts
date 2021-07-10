@@ -7,10 +7,10 @@ import { IPostsRepository } from "../repositories/IPostsRepository";
 class DeletePostService {
     constructor(
         @inject("PostsRepository")
-        private postsRepository: IPostsRepository
+        private postsRepository: IPostsRepository,
     ) {}
 
-    async execute({ author_id, post_id }: IDeletePostDTO) {
+    async execute({ author_id, post_id }: IDeletePostDTO): Promise<void> {
         const post = await this.postsRepository.findById(post_id);
 
         if (!post) {

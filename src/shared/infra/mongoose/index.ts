@@ -8,11 +8,11 @@ mongoose.connect(
         useCreateIndex: true,
         useFindAndModify: false,
     },
-    (error) => {
+    error => {
         if (error) {
             console.error(error);
         } else {
             console.log("Connected to MongoDb");
         }
-    }
+    },
 );

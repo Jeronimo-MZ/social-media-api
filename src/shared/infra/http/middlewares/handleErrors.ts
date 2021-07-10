@@ -5,8 +5,8 @@ export function handleErrors(
     error: Error,
     _request: Request,
     response: Response,
-    _next: NextFunction
-) {
+    _next: NextFunction,
+): Response {
     if (error instanceof AppError) {
         return response
             .status(error.statusCode)

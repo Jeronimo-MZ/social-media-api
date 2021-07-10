@@ -8,10 +8,10 @@ import { PostsRepository } from "@modules/posts/infra/mongoose/repositories/Post
 
 container.registerSingleton<IUsersRepository>(
     "UsersRepository",
-    UsersRepository
+    UsersRepository,
 );
 
 container.registerSingleton<IPostsRepository>(
     "PostsRepository",
-    PostsRepository
+    PostsRepository,
 );

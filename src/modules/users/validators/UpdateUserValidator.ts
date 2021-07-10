@@ -2,7 +2,7 @@ import * as Yup from "yup";
 import { AppError } from "@shared/errors/AppError";
 
 class UpdateUserValidator {
-    async validate(object: Object): Promise<void> {
+    async validate(object: unknown): Promise<void> {
         const schema = Yup.object({
             nickname: Yup.string().min(3).max(20).notRequired(),
             email: Yup.string().email().max(50).notRequired(),

@@ -73,7 +73,7 @@ const UserSchema = new Schema<IUser>(
     },
     {
         timestamps: true,
-    }
+    },
 );
 
 export default model<IUser>("User", UserSchema);

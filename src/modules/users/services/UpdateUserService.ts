@@ -2,12 +2,13 @@ import { inject, injectable } from "tsyringe";
 import { IUpdateUserDTO } from "@modules/users/dtos/IUpdateUserDTO";
 import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
+import { IUser } from "../infra/mongoose/models/User";
 
 @injectable()
 class UpdateUserService {
     constructor(
         @inject("UsersRepository")
-        private usersRepository: IUsersRepository
+        private usersRepository: IUsersRepository,
     ) {}
     async execute(
         user_id: string,
@@ -20,8 +21,8 @@ class UpdateUserService {
             hometown,
             profilePicture,
             relationship,
-        }: IUpdateUserDTO
-    ) {
+        }: IUpdateUserDTO,
+    ): Promise<IUser | undefined> {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
@@ -40,7 +41,7 @@ class UpdateUserService {
         if (nickname) {
             nickname = nickname.trim().toLowerCase();
             const userWithNickname = await this.usersRepository.findByNickname(
-                nickname
+                nickname,
             );
 
             if (userWithNickname && user.nickname !== nickname) {

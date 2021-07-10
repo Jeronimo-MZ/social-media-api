@@ -6,7 +6,7 @@ import { AppError } from "@shared/errors/AppError";
 export default function ensureAuthenticated(
     request: Request,
     _response: Response,
-    next: NextFunction
+    next: NextFunction,
 ): void {
     const authHeader = request.headers.authorization;
     if (!authHeader) {

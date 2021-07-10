@@ -35,7 +35,7 @@ export default class AuthenticateUserService {
         private hashProvider: IHashProvider,
 
         @inject("TokenProvider")
-        private tokenProvider: ITokenProvider
+        private tokenProvider: ITokenProvider,
     ) {}
 
     public async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -46,7 +46,7 @@ export default class AuthenticateUserService {
         }
         const hasPasswordMatched = await this.hashProvider.compareHash(
             password,
-            user.password
+            user.password,
         );
 
         if (!hasPasswordMatched) {

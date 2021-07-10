@@ -2,7 +2,7 @@ import * as Yup from "yup";
 import { AppError } from "@shared/errors/AppError";
 
 class CreateSessionValidator {
-    async validate(object: Object): Promise<void> {
+    async validate(object: unknown): Promise<void> {
         const schema = Yup.object({
             email: Yup.string().email().required(),
             password: Yup.string().min(6).required(),

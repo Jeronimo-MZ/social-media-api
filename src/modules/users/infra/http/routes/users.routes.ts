@@ -15,19 +15,19 @@ userRouter.patch("/", ensureAuthenticated, usersController.update);
 userRouter.patch(
     "/password",
     ensureAuthenticated,
-    userPasswordController.update
+    userPasswordController.update,
 );
 
 userRouter.post(
     "/:followed_user_id/follow",
     ensureAuthenticated,
-    followersController.create
+    followersController.create,
 );
 
 userRouter.delete(
     "/:followed_user_id/unfollow",
     ensureAuthenticated,
-    followersController.delete
+    followersController.delete,
 );
 
 userRouter.delete("/", ensureAuthenticated, usersController.delete);

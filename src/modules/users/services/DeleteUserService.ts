@@ -10,9 +10,9 @@ class DeleteUserService {
         private usersRepository: IUsersRepository,
 
         @inject("HashProvider")
-        private hashProvider: IHashProvider
+        private hashProvider: IHashProvider,
     ) {}
-    async execute(user_id: string, password: string) {
+    async execute(user_id: string, password: string): Promise<void> {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
