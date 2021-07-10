@@ -1,4 +1,5 @@
 import { ICreatePostDTO } from "@modules/posts/dtos/ICreatePostDTO";
+import { IUpdatePostDTO } from "@modules/posts/dtos/IUpdatePostDTO";
 import { IPostsRepository } from "@modules/posts/repositories/IPostsRepository";
 import Post, { IPost } from "../models/Post";
 
@@ -11,6 +12,21 @@ class PostsRepository implements IPostsRepository {
 
         const post = await newPost.save();
         return post.toObject();
+    }
+
+    async update({
+        content,
+        post_id,
+    }: IUpdatePostDTO): Promise<IPost | undefined> {
+        await Post.findByIdAndUpdate(post_id, { content });
+
+        const updatedPost = await Post.findById(post_id, { content });
+        return updatedPost?.toObject() || undefined;
+    }
+
+    async findById(id: string): Promise<IPost | undefined> {
+        const post = await Post.findById(id);
+        return post?.toObject() || undefined;
     }
 }
 
