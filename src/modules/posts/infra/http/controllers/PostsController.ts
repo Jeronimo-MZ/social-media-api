@@ -1,4 +1,5 @@
 import { CreatePostService } from "@modules/posts/services/CreatePostService";
+import { DeletePostService } from "@modules/posts/services/DeletePostService";
 import { UpdatePostService } from "@modules/posts/services/UpdatePostService";
 import { CreatePostValidator } from "@modules/posts/validators/CreatePostValidator";
 import { UpdatePostValidator } from "@modules/posts/validators/UpdatePostValidator";
@@ -30,6 +31,17 @@ class PostsController {
         });
 
         return response.json({ post: { ...updatedPost } });
+    }
+
+    async delete(request: Request, response: Response): Promise<Response> {
+        const deletePost = container.resolve(DeletePostService);
+
+        await deletePost.execute({
+            post_id: request.params.post_id,
+            author_id: request.body.user_id,
+        });
+
+        return response.status(203).send();
     }
 }
 
