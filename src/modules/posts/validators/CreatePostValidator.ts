@@ -5,7 +5,6 @@ class CreatePostValidator {
     async validate(object: Object): Promise<void> {
         const schema = Yup.object({
             content: Yup.string().required(),
-            image: Yup.string().notRequired(),
         });
 
         try {
