@@ -24,6 +24,10 @@ class PostsRepository implements IPostsRepository {
         return updatedPost?.toObject() || undefined;
     }
 
+    async delete(post_id: string): Promise<void> {
+        await Post.findByIdAndDelete(post_id);
+    }
+
     async findById(id: string): Promise<IPost | undefined> {
         const post = await Post.findById(id);
         return post?.toObject() || undefined;
