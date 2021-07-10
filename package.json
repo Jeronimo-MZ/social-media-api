@@ -8,7 +8,15 @@
     },
     "license": "MIT",
     "scripts": {
-        "dev": "tsnd -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts"
+        "dev": "tsnd -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+        "lint": "eslint src --ext .ts",
+        "lint:fix": "yarn lint -- --fix",
+        "prepare": "husky install"
+    },
+    "lint-staged": {
+        "src/**/**.ts": [
+            "eslint --cache --fix"
+        ]
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
@@ -34,6 +42,8 @@
         "eslint": "^7.30.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^3.4.0",
+        "husky": "^7.0.1",
+        "lint-staged": "^11.0.0",
         "prettier": "^2.3.2",
         "ts-node-dev": "^1.1.8",
         "tsconfig-paths": "^3.10.1",
