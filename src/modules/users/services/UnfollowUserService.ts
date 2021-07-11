@@ -1,8 +1,14 @@
 import { IFollowUserDTO } from "@modules/users/dtos/IFollowUserDTO";
 import { AppError } from "@shared/errors/AppError";
-import User from "@modules/users/infra/mongoose/models/User";
+import { inject, injectable } from "tsyringe";
+import { IUsersRepository } from "../repositories/IUsersRepository";
 
+@injectable()
 class UnfollowUserService {
+    constructor(
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository,
+    ) {}
     public async execute({
         user_id,
         followed_user_id,
@@ -11,34 +17,24 @@ class UnfollowUserService {
             throw new AppError("You cannot unfollow yourself");
         }
 
-        const currentUser = await User.findById(user_id);
-        const followedUser = await User.findById(followed_user_id);
+        const currentUser = await this.usersRepository.findById(user_id);
+        const followedUser = await this.usersRepository.findById(
+            followed_user_id,
+        );
 
         if (!currentUser) throw new AppError("User Not found", 404);
 
         if (!followedUser) throw new AppError("Followed user Not found", 404);
 
         if (!currentUser.followings?.includes(followed_user_id)) {
-            if (followedUser.followers?.includes(user_id)) {
-                await followedUser.updateOne({ $pull: { followers: user_id } });
-            }
             throw new AppError("You do not follow this user", 403);
         }
 
         if (!followedUser.followers?.includes(user_id)) {
-            if (currentUser.followings?.includes(followed_user_id)) {
-                await currentUser.updateOne({
-                    $pull: { followings: followed_user_id },
-                });
-            }
             throw new AppError("You do not follow this user", 403);
         }
 
-        await currentUser.updateOne({
-            $pull: { followings: followed_user_id },
-        });
-
-        await followedUser.updateOne({ $pull: { followers: user_id } });
+        await this.usersRepository.unfollowUser({ followed_user_id, user_id });
     }
 }
 
