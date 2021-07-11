@@ -4,6 +4,7 @@ import { AppError } from "@shared/errors/AppError";
 class UpdateUserValidator {
     async validate(object: unknown): Promise<void> {
         const schema = Yup.object({
+            user_id: Yup.string().required(),
             nickname: Yup.string().min(3).max(20).notRequired(),
             email: Yup.string().email().max(50).notRequired(),
             profilePicture: Yup.string().url().notRequired(),
