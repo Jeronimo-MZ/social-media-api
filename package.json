@@ -1,5 +1,5 @@
 {
-    "name": "node-rest-api",
+    "name": "social-media-api",
     "version": "1.0.0",
     "main": "src/shared/infra/http/server.ts",
     "author": {
