@@ -1,5 +1,6 @@
 import { CreatePostService } from "@modules/posts/services/CreatePostService";
 import { DeletePostService } from "@modules/posts/services/DeletePostService";
+import { ShowPostService } from "@modules/posts/services/ShowPostService";
 import { UpdatePostService } from "@modules/posts/services/UpdatePostService";
 import { CreatePostValidator } from "@modules/posts/validators/CreatePostValidator";
 import { UpdatePostValidator } from "@modules/posts/validators/UpdatePostValidator";
@@ -7,6 +8,11 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 
 class PostsController {
+    async show(request: Request, response: Response): Promise<Response> {
+        const showPost = container.resolve(ShowPostService);
+        return response.json(await showPost.execute(request.params.post_id));
+    }
+
     async create(request: Request, response: Response): Promise<Response> {
         const validator = new CreatePostValidator();
 
