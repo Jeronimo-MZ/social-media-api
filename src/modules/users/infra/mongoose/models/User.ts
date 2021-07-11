@@ -7,8 +7,8 @@ export interface IUser {
     password: string;
     profilePicture?: string;
     coverPicture?: string;
-    followers?: string[];
-    followings?: string[];
+    followers: string[];
+    followings: string[];
     isAdmin?: boolean;
     description?: string;
     city?: string;

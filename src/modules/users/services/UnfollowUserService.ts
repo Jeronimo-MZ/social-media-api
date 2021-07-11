@@ -26,11 +26,7 @@ class UnfollowUserService {
 
         if (!followedUser) throw new AppError("Followed user Not found", 404);
 
-        if (!currentUser.followings?.includes(followed_user_id)) {
-            throw new AppError("You do not follow this user", 403);
-        }
-
-        if (!followedUser.followers?.includes(user_id)) {
+        if (!currentUser.followings.includes(followed_user_id)) {
             throw new AppError("You do not follow this user", 403);
         }
 
