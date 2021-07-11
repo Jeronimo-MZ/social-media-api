@@ -13,7 +13,7 @@ class ShowPostService {
     async execute(post_id: string): Promise<IPost> {
         const post = await this.postsRepository.findById(post_id);
         if (!post) {
-            throw new AppError("Post not found", 404);
+            throw new AppError("Post not found!", 404);
         }
 
         return post;
