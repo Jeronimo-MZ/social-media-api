@@ -19,7 +19,7 @@ class CreatePostService {
         const user = await this.usersRepository.findById(data.user_id);
 
         if (!user) {
-            throw new AppError("User not found!", 404);
+            throw new AppError("User not found!", 401);
         }
 
         const post = await this.postsRepository.create(data);
