@@ -43,6 +43,12 @@ class PostsRepository implements IPostsRepository {
         const post = await Post.findById(post_id);
         await post?.updateOne({ $pull: { likes: user_id } });
     }
+
+    async findAllByAuthorId(author_id: string): Promise<IPost[]> {
+        const posts = await Post.find({ author_id });
+
+        return posts.map(post => post.toObject()).reverse();
+    }
 }
 
 export { PostsRepository };

@@ -8,6 +8,7 @@ export interface IPostsRepository {
     update(data: IUpdatePostDTO): Promise<IPost | undefined>;
     delete(post_id: string): Promise<void>;
     findById(id: string): Promise<IPost | undefined>;
+    findAllByAuthorId(author_id: string): Promise<IPost[]>;
     addLike(data: IToggleLikePostDTO): Promise<void>;
     removeLike(data: IToggleLikePostDTO): Promise<void>;
 }
