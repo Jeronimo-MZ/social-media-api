@@ -15,8 +15,6 @@ class ShowUserTimelineService {
     ) {}
     async execute(user_id: string): Promise<IPost[]> {
         const user = await this.usersRepository.findById(user_id);
-        console.log(user_id);
-        console.log(user);
 
         if (!user) {
             throw new AppError("User not found", 404);
