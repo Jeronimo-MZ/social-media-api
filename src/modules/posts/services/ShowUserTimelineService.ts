@@ -17,7 +17,7 @@ class ShowUserTimelineService {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
-            throw new AppError("User not found", 404);
+            throw new AppError("User not found!", 404);
         }
 
         const userPosts = await this.postsRepository.findAllByAuthorId(user_id);
