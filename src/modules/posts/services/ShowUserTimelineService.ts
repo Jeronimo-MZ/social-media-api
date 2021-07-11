@@ -21,9 +21,6 @@ class ShowUserTimelineService {
         }
 
         const userPosts = await this.postsRepository.findAllByAuthorId(user_id);
-        if (!user.followings) {
-            return userPosts;
-        }
 
         const userFriendsPosts = await Promise.all(
             user.followings.map(friend_id =>
