@@ -49,12 +49,6 @@ class UpdateUserService {
             }
         }
 
-        if (relationship) {
-            if (relationship <= 0 || relationship > 3) {
-                throw new AppError("relashionship must be 1, 2 or 3");
-            }
-        }
-
         return await this.usersRepository.update(user_id, {
             email: email || user.email,
             nickname: nickname || user.nickname,
