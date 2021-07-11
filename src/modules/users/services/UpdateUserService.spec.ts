@@ -37,6 +37,37 @@ describe("UpdateUser", () => {
         expect(updatedUser).toMatchObject(newUserData);
     });
 
+    it("should not be able to update user fields with undefined data provided", async () => {
+        const hashProvider = new FakeHashProvider();
+        const usersRepository = new FakeUsersRepository();
+        const createUser = new CreateUserService(usersRepository, hashProvider);
+        const updateUser = new UpdateUserService(usersRepository);
+
+        const user = await createUser.execute({
+            email: "user@mail.com",
+            nickname: "username",
+            password: "12345678",
+        });
+
+        const newUserData: IUpdateUserDTO = {
+            email: undefined,
+            nickname: undefined,
+            city: undefined,
+            coverPicture: undefined,
+            profilePicture: undefined,
+            description: undefined,
+            relationship: undefined,
+            hometown: undefined,
+        };
+
+        await updateUser.execute(user._id, newUserData);
+
+        const updatedUser = await usersRepository.findById(user._id);
+
+        expect(updatedUser).not.toBeUndefined();
+        expect(updatedUser).not.toMatchObject(newUserData);
+    });
+
     it("should not be able to update a non-existent user", async () => {
         const usersRepository = new FakeUsersRepository();
         const updateUser = new UpdateUserService(usersRepository);
