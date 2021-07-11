@@ -1,10 +1,11 @@
 import { FollowUserService } from "@modules/users/services/FollowUserService";
 import { Request, Response } from "express";
 import { UnfollowUserService } from "@modules/users/services/UnfollowUserService";
+import { container } from "tsyringe";
 
 class FollowersController {
     async create(request: Request, response: Response): Promise<Response> {
-        const followUser = new FollowUserService();
+        const followUser = container.resolve(FollowUserService);
         const { user_id } = request.body;
         const { followed_user_id } = request.params;
 
@@ -13,7 +14,7 @@ class FollowersController {
     }
 
     async delete(request: Request, response: Response): Promise<Response> {
-        const unfollowUser = new UnfollowUserService();
+        const unfollowUser = container.resolve(UnfollowUserService);
         const { user_id } = request.body;
         const { followed_user_id } = request.params;
 
