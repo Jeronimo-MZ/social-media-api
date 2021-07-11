@@ -11,7 +11,9 @@
         "dev": "tsnd -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
         "lint": "eslint src --ext .ts",
         "lint:fix": "yarn lint -- --fix",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "test": "jest --runInBand --detectOpenHandles --colors --verbose",
+        "test:ci": "jest --ci --runInBand --silent --colors --coverage"
     },
     "lint-staged": {
         "src/**/**.ts": [
