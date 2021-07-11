@@ -2,7 +2,7 @@ import { ITokenProvider } from "../models/ITokenProvider";
 import { sign, verify } from "jsonwebtoken";
 import authConfig from "@config/auth";
 
-interface TokenPayload {
+interface ITokenPayload {
     iat: number;
     exp: number;
     sub: string;
@@ -16,7 +16,7 @@ class JwtTokenProvider implements ITokenProvider {
      */
     getDataOrFail(token: string): string {
         const decoded = verify(token, authConfig.secret);
-        const { sub } = decoded as TokenPayload;
+        const { sub } = decoded as ITokenPayload;
         return sub;
     }
     generateToken(user_id: string): string {
