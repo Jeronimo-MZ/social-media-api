@@ -7,6 +7,7 @@ const postsRouter = Router();
 const postsController = new PostsController();
 const postLikesController = new PostLikesController();
 
+postsRouter.get("/:post_id", postsController.show);
 postsRouter.post("/", ensureAuthenticated, postsController.create);
 postsRouter.put("/:post_id", ensureAuthenticated, postsController.update);
 postsRouter.patch(
