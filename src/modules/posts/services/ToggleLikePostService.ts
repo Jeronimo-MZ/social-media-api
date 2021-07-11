@@ -22,14 +22,14 @@ class ToggleLikePostService {
                 post_id,
                 user_id,
             });
-            return "The post has been liked";
+            return "The post has been disliked";
         } else {
             await this.postsRepository.addLike({
                 post_id,
                 user_id,
             });
 
-            return "The post has been disliked";
+            return "The post has been liked";
         }
     }
 }
