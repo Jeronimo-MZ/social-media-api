@@ -2,6 +2,7 @@ import { FakeHashProvider } from "@modules/users/providers/HashProvider/fakes/Fa
 import { FakeUsersRepository } from "@modules/users/repositories/fakes/FakeUsersRepository";
 import CreateUserService from "@modules/users/services/CreateUserService";
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakePostsRepository } from "../repositories/fakes/FakePostsRepository";
 import { CreatePostService } from "./CreatePostService";
 import { ToggleLikePostService } from "./ToggleLikePostService";
@@ -110,7 +111,9 @@ describe("ToggleLikePost", () => {
                 post_id: "fakePostID",
                 user_id: user._id,
             }),
-        ).rejects.toEqual(new AppError("Post not found", 404));
+        ).rejects.toEqual(
+            new AppError("Post not found", HttpStatusCode.NOT_FOUND),
+        );
     });
 
     it("should not be able to like a post with non-existent user", async () => {
@@ -144,6 +147,8 @@ describe("ToggleLikePost", () => {
                 post_id: post._id,
                 user_id: "fakeUserId123",
             }),
-        ).rejects.toEqual(new AppError("User not found", 403));
+        ).rejects.toEqual(
+            new AppError("User not found", HttpStatusCode.UNAUTHORIZED),
+        );
     });
 });
