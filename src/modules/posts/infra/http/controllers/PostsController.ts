@@ -4,6 +4,7 @@ import { ShowPostService } from "@modules/posts/services/ShowPostService";
 import { UpdatePostService } from "@modules/posts/services/UpdatePostService";
 import { CreatePostValidator } from "@modules/posts/validators/CreatePostValidator";
 import { UpdatePostValidator } from "@modules/posts/validators/UpdatePostValidator";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
@@ -47,7 +48,7 @@ class PostsController {
             author_id: request.body.user_id,
         });
 
-        return response.status(203).send();
+        return response.status(HttpStatusCode.NO_CONTENT).send();
     }
 }
 
