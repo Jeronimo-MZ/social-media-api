@@ -1,3 +1,4 @@
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../../../errors/AppError";
 
@@ -13,8 +14,8 @@ export function handleErrors(
             .json({ status: error.statusCode, error: error.message });
     }
 
-    return response.status(500).json({
-        status: "error",
+    return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+        status: HttpStatusCode.INTERNAL_SERVER_ERROR,
         message: `Internal Server Error ${error.message}`,
     });
 }
