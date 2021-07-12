@@ -1,4 +1,5 @@
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { IUpdateUserDTO } from "../dtos/IUpdateUserDTO";
 import { FakeHashProvider } from "../providers/HashProvider/fakes/FakeHashProvider";
 import { FakeUsersRepository } from "../repositories/fakes/FakeUsersRepository";
@@ -111,9 +112,12 @@ describe("UpdateUser", () => {
             hometown: "Maputo",
         };
 
+        expect.assertions(1);
         await expect(
             updateUser.execute("fakeId1234", newUserData),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("User not found", HttpStatusCode.UNAUTHORIZED),
+        );
     });
 
     it("should be able to update the email to an already used email", async () => {
@@ -134,9 +138,12 @@ describe("UpdateUser", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             updateUser.execute(user._id, { email: user2.email }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("Email already used!", HttpStatusCode.CONFLICT),
+        );
     });
 
     it("should be able to update the nickname to an already used nickname", async () => {
@@ -157,8 +164,11 @@ describe("UpdateUser", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             updateUser.execute(user._id, { nickname: user2.nickname }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("Nickname already used!", HttpStatusCode.CONFLICT),
+        );
     });
 });
