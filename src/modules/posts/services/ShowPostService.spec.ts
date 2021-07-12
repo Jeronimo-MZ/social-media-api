@@ -2,6 +2,7 @@ import { FakeHashProvider } from "@modules/users/providers/HashProvider/fakes/Fa
 import { FakeUsersRepository } from "@modules/users/repositories/fakes/FakeUsersRepository";
 import CreateUserService from "@modules/users/services/CreateUserService";
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakePostsRepository } from "../repositories/fakes/FakePostsRepository";
 import { CreatePostService } from "./CreatePostService";
 import { ShowPostService } from "./ShowPostService";
@@ -40,7 +41,7 @@ describe("ShowPost", () => {
 
         expect.assertions(1);
         await expect(showPost.execute("fake_id123")).rejects.toEqual(
-            new AppError("Post not found!", 404),
+            new AppError("Post not found!", HttpStatusCode.NOT_FOUND),
         );
     });
 });
