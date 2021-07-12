@@ -1,4 +1,5 @@
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakeHashProvider } from "../providers/HashProvider/fakes/FakeHashProvider";
 import { FakeUsersRepository } from "../repositories/fakes/FakeUsersRepository";
 import CreateUserService from "./CreateUserService";
@@ -60,12 +61,18 @@ describe("UnfollowUser", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             unfollowUser.execute({
                 followed_user_id: user._id,
                 user_id: user._id,
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError(
+                "You cannot unfollow yourself",
+                HttpStatusCode.FORBIDDEN,
+            ),
+        );
     });
 
     it("should not be able to unfollow a user that he does not follow", async () => {
@@ -86,12 +93,18 @@ describe("UnfollowUser", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             unfollowUser.execute({
                 followed_user_id: followedUser._id,
                 user_id: user._id,
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError(
+                "You do not follow this user",
+                HttpStatusCode.FORBIDDEN,
+            ),
+        );
     });
 
     it("should not be able to unfollow a non-existent user", async () => {
@@ -106,12 +119,15 @@ describe("UnfollowUser", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             unfollowUser.execute({
                 followed_user_id: "fakeId1234",
                 user_id: user._id,
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("Followed user Not found", HttpStatusCode.NOT_FOUND),
+        );
     });
 
     it("should not be able to unfollow with an non-existent user", async () => {
@@ -126,11 +142,14 @@ describe("UnfollowUser", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             unfollowUser.execute({
                 followed_user_id: followedUser._id,
                 user_id: "fakeId1234",
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("User Not found", HttpStatusCode.UNAUTHORIZED),
+        );
     });
 });
