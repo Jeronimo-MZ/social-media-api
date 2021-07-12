@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { JwtTokenProvider } from "@modules/users/providers/TokenProvider/implementations/JwtTokenProvider";
 import { ITokenProvider } from "@modules/users/providers/TokenProvider/models/ITokenProvider";
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 
 export default function ensureAuthenticated(
     request: Request,
@@ -10,7 +11,10 @@ export default function ensureAuthenticated(
 ): void {
     const authHeader = request.headers.authorization;
     if (!authHeader) {
-        throw new AppError("Authorization token is missing", 401);
+        throw new AppError(
+            "Authorization token is missing",
+            HttpStatusCode.UNAUTHORIZED,
+        );
     }
 
     const [, token] = authHeader.split(" ");
@@ -21,6 +25,9 @@ export default function ensureAuthenticated(
         request.body.user_id = user_id;
         return next();
     } catch (error) {
-        throw new AppError("Invalid Authorization token", 401);
+        throw new AppError(
+            "Invalid Authorization token",
+            HttpStatusCode.UNAUTHORIZED,
+        );
     }
 }
