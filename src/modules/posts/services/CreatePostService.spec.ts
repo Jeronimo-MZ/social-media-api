@@ -2,6 +2,7 @@ import { FakeHashProvider } from "@modules/users/providers/HashProvider/fakes/Fa
 import { FakeUsersRepository } from "@modules/users/repositories/fakes/FakeUsersRepository";
 import CreateUserService from "@modules/users/services/CreateUserService";
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakePostsRepository } from "../repositories/fakes/FakePostsRepository";
 import { CreatePostService } from "./CreatePostService";
 
@@ -48,6 +49,8 @@ describe("CreatePost", () => {
                 content: "new Post content",
                 user_id: "fakeId123456",
             }),
-        ).rejects.toEqual(new AppError("User not found!", 401));
+        ).rejects.toEqual(
+            new AppError("User not found!", HttpStatusCode.UNAUTHORIZED),
+        );
     });
 });
