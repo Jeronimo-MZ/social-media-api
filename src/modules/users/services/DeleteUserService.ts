@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { IHashProvider } from "@modules/users/providers/HashProvider/models/IHashProvider";
 import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 
 @injectable()
 class DeleteUserService {
@@ -16,11 +17,11 @@ class DeleteUserService {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
-            throw new AppError("User not found", 404);
+            throw new AppError("User not found", HttpStatusCode.UNAUTHORIZED);
         }
 
         if (!(await this.hashProvider.compareHash(password, user.password))) {
-            throw new AppError("Wrong Password!");
+            throw new AppError("Wrong Password!", HttpStatusCode.UNAUTHORIZED);
         }
 
         await this.usersRepository.delete(user_id);
