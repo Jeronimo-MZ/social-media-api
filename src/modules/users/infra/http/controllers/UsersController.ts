@@ -8,6 +8,7 @@ import { UpdateUserService } from "@modules/users/services/UpdateUserService";
 import { CreateUserValidator } from "@modules/users/validators/CreateUserValidator";
 import { DeleteUserValidator } from "@modules/users/validators/DeleteUserValidator";
 import { UpdateUserValidator } from "@modules/users/validators/UpdateUserValidator";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 
 class UsersController {
     async show(request: Request, response: Response): Promise<Response> {
@@ -51,7 +52,7 @@ class UsersController {
         const deleteUser = container.resolve(DeleteUserService);
         await deleteUser.execute(request.body.user_id, request.body.password);
 
-        return response.status(203).send();
+        return response.status(HttpStatusCode.NO_CONTENT).send();
     }
 }
 
