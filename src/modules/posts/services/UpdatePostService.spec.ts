@@ -2,6 +2,7 @@ import { FakeHashProvider } from "@modules/users/providers/HashProvider/fakes/Fa
 import { FakeUsersRepository } from "@modules/users/repositories/fakes/FakeUsersRepository";
 import CreateUserService from "@modules/users/services/CreateUserService";
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakePostsRepository } from "../repositories/fakes/FakePostsRepository";
 import { CreatePostService } from "./CreatePostService";
 import { UpdatePostService } from "./UpdatePostService";
@@ -66,7 +67,9 @@ describe("UpdatePost", () => {
                 post_id: "fakePostId124",
                 content: "new content",
             }),
-        ).rejects.toEqual(new AppError("Post not found!", 404));
+        ).rejects.toEqual(
+            new AppError("Post not found!", HttpStatusCode.NOT_FOUND),
+        );
     });
 
     it("should not be able to update another user's Post", async () => {
@@ -106,7 +109,10 @@ describe("UpdatePost", () => {
                 content: "new content",
             }),
         ).rejects.toEqual(
-            new AppError("You can update only your own posts", 403),
+            new AppError(
+                "You can update only your own posts",
+                HttpStatusCode.FORBIDDEN,
+            ),
         );
     });
 });
