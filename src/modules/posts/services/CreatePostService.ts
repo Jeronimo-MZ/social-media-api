@@ -1,5 +1,6 @@
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { injectable, inject } from "tsyringe";
 import { ICreatePostDTO } from "../dtos/ICreatePostDTO";
 import { IPost } from "../infra/mongoose/models/Post";
@@ -19,7 +20,7 @@ class CreatePostService {
         const user = await this.usersRepository.findById(data.user_id);
 
         if (!user) {
-            throw new AppError("User not found!", 401);
+            throw new AppError("User not found!", HttpStatusCode.UNAUTHORIZED);
         }
 
         const post = await this.postsRepository.create(data);
