@@ -1,4 +1,5 @@
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { injectable, inject } from "tsyringe";
 import { IUpdatePostDTO } from "../dtos/IUpdatePostDTO";
 import { IPost } from "../infra/mongoose/models/Post";
@@ -19,11 +20,14 @@ class UpdatePostService {
         const post = await this.postsRepository.findById(post_id);
 
         if (!post) {
-            throw new AppError("Post not found!", 404);
+            throw new AppError("Post not found!", HttpStatusCode.NOT_FOUND);
         }
 
         if (post.author_id !== author_id) {
-            throw new AppError("You can update only your own posts", 403);
+            throw new AppError(
+                "You can update only your own posts",
+                HttpStatusCode.FORBIDDEN,
+            );
         }
 
         const updatedPost = await this.postsRepository.update({
