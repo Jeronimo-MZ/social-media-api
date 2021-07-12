@@ -1,4 +1,5 @@
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakeHashProvider } from "../providers/HashProvider/fakes/FakeHashProvider";
 import { FakeUsersRepository } from "../repositories/fakes/FakeUsersRepository";
 import CreateUserService from "./CreateUserService";
@@ -39,12 +40,15 @@ describe("UpdateUserPassword", () => {
             hashProvider,
         );
 
+        expect.assertions(1);
         await expect(
             updatePassword.execute("fakeId1234", {
                 oldPassword: "oldPassword",
                 newPassword: "updatedPassword",
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("User not found", HttpStatusCode.UNAUTHORIZED),
+        );
     });
 
     it("should be able to update the password if an wrong old password is provided", async () => {
@@ -64,11 +68,14 @@ describe("UpdateUserPassword", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             updatePassword.execute(user._id, {
                 oldPassword: "wrongPassword",
                 newPassword: "updatedPassword",
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("Wrong Old Password!", HttpStatusCode.UNAUTHORIZED),
+        );
     });
 });
