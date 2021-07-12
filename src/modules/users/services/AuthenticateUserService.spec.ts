@@ -1,4 +1,5 @@
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakeHashProvider } from "../providers/HashProvider/fakes/FakeHashProvider";
 import { JwtTokenProvider } from "../providers/TokenProvider/implementations/JwtTokenProvider";
 import { FakeUsersRepository } from "../repositories/fakes/FakeUsersRepository";
@@ -51,12 +52,18 @@ describe("AuthenticateUser", () => {
             TokenProvider,
         );
 
-        expect(
+        expect.assertions(1);
+        await expect(
             authenticateUser.execute({
                 email: "user@mail.com",
                 password: "12345678",
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError(
+                "Incorrect email/password combination!",
+                HttpStatusCode.UNAUTHORIZED,
+            ),
+        );
     });
 
     it("should not be able authenticate user with wrong password", async () => {
@@ -81,11 +88,17 @@ describe("AuthenticateUser", () => {
             password: "12345678",
         });
 
-        expect(
+        expect.assertions(1);
+        await expect(
             authenticateUser.execute({
                 email: "user@mail.com",
                 password: "wrongPassword",
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError(
+                "Incorrect email/password combination!",
+                HttpStatusCode.UNAUTHORIZED,
+            ),
+        );
     });
 });
