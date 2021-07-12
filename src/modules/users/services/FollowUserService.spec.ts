@@ -1,4 +1,5 @@
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakeHashProvider } from "../providers/HashProvider/fakes/FakeHashProvider";
 import { FakeUsersRepository } from "../repositories/fakes/FakeUsersRepository";
 import CreateUserService from "./CreateUserService";
@@ -53,12 +54,18 @@ describe("FollowUser", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             FollowUser.execute({
                 followed_user_id: user._id,
                 user_id: user._id,
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError(
+                "You cannot follow yourself",
+                HttpStatusCode.FORBIDDEN,
+            ),
+        );
     });
 
     it("should not be able to follow a user that already he follows", async () => {
@@ -84,12 +91,18 @@ describe("FollowUser", () => {
             user_id: user._id,
         });
 
+        expect.assertions(1);
         await expect(
             FollowUser.execute({
                 followed_user_id: followedUser._id,
                 user_id: user._id,
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError(
+                "You already follow this user",
+                HttpStatusCode.FORBIDDEN,
+            ),
+        );
     });
 
     it("should not be able to follow a non-existent user", async () => {
@@ -104,12 +117,15 @@ describe("FollowUser", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             FollowUser.execute({
                 followed_user_id: "fakeId1234",
                 user_id: user._id,
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("Followed user Not found", HttpStatusCode.NOT_FOUND),
+        );
     });
 
     it("should not be able to follow with an non-existent user", async () => {
@@ -124,11 +140,14 @@ describe("FollowUser", () => {
             password: "12345678",
         });
 
+        expect.assertions(1);
         await expect(
             FollowUser.execute({
                 followed_user_id: followedUser._id,
                 user_id: "fakeId1234",
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("User Not found", HttpStatusCode.UNAUTHORIZED),
+        );
     });
 });
