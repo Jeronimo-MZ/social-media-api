@@ -37,6 +37,35 @@ describe("UpdateUser", () => {
         expect(updatedUser).toMatchObject(newUserData);
     });
 
+    it("should not be able to update a user with spaces in the new nickname", async () => {
+        const hashProvider = new FakeHashProvider();
+        const usersRepository = new FakeUsersRepository();
+        const createUser = new CreateUserService(usersRepository, hashProvider);
+        const updateUser = new UpdateUserService(usersRepository);
+
+        const user = await createUser.execute({
+            email: "user@mail.com",
+            nickname: "username",
+            password: "12345678",
+        });
+
+        const newUserData: IUpdateUserDTO = {
+            email: "new@mail.com",
+            nickname: "new nickname",
+            city: "Maputo",
+            coverPicture: "https://github.com/jeronimo-mz.png",
+            profilePicture: "https://github.com/jeronimo-mz.png",
+            description: "updated description",
+            relationship: 2,
+            hometown: "Maputo",
+        };
+
+        expect.assertions(1);
+        await expect(updateUser.execute(user._id, newUserData)).rejects.toEqual(
+            new AppError("Nickname cannot contain spaces"),
+        );
+    });
+
     it("should not be able to update user fields with undefined data provided", async () => {
         const hashProvider = new FakeHashProvider();
         const usersRepository = new FakeUsersRepository();
