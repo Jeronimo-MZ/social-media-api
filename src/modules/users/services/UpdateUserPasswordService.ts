@@ -4,6 +4,7 @@ import { IUpdateUserPasswordDTO } from "@modules/users/dtos/IUpdateUserPasswordD
 import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { IUser } from "../infra/mongoose/models/User";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 
 @injectable()
 class UpdateUserPasswordService {
@@ -21,13 +22,16 @@ class UpdateUserPasswordService {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
-            throw new AppError("User not found", 404);
+            throw new AppError("User not found", HttpStatusCode.UNAUTHORIZED);
         }
 
         if (
             !(await this.hashProvider.compareHash(oldPassword, user.password))
         ) {
-            throw new AppError("Wrong Old Password!");
+            throw new AppError(
+                "Wrong Old Password!",
+                HttpStatusCode.UNAUTHORIZED,
+            );
         }
 
         const hashedPassword = await this.hashProvider.generateHash(
