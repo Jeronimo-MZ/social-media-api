@@ -3,6 +3,7 @@ import { IPostsRepository } from "@modules/posts/repositories/IPostsRepository";
 import { IToggleLikePostDTO } from "../dtos/IToggleLikePostDTO";
 import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 
 @injectable()
 class ToggleLikePostService {
@@ -18,13 +19,13 @@ class ToggleLikePostService {
         const post = await this.postsRepository.findById(post_id);
 
         if (!post) {
-            throw new AppError("Post not found", 404);
+            throw new AppError("Post not found", HttpStatusCode.NOT_FOUND);
         }
 
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
-            throw new AppError("User not found", 403);
+            throw new AppError("User not found", HttpStatusCode.UNAUTHORIZED);
         }
 
         if (post.likes.includes(String(user_id))) {
