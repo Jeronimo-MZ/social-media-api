@@ -1,5 +1,6 @@
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { inject, injectable } from "tsyringe";
 import { IPost } from "../infra/mongoose/models/Post";
 import { IPostsRepository } from "../repositories/IPostsRepository";
@@ -17,7 +18,7 @@ class ShowUserTimelineService {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
-            throw new AppError("User not found!", 404);
+            throw new AppError("User not found!", HttpStatusCode.NOT_FOUND);
         }
 
         const userPosts = await this.postsRepository.findAllByAuthorId(user_id);
