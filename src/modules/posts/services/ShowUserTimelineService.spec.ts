@@ -3,6 +3,7 @@ import { FakeUsersRepository } from "@modules/users/repositories/fakes/FakeUsers
 import CreateUserService from "@modules/users/services/CreateUserService";
 import { FollowUserService } from "@modules/users/services/FollowUserService";
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakePostsRepository } from "../repositories/fakes/FakePostsRepository";
 import { CreatePostService } from "./CreatePostService";
 import { ShowUserTimelineService } from "./ShowUserTimelineService";
@@ -69,7 +70,7 @@ describe("UpdatePost", () => {
 
         expect.assertions(1);
         await expect(showTimeline.execute("FakeUserId123")).rejects.toEqual(
-            new AppError("User not found!", 404),
+            new AppError("User not found!", HttpStatusCode.NOT_FOUND),
         );
     });
 });
