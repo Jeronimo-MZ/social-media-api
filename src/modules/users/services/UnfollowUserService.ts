@@ -1,5 +1,6 @@
 import { IFollowUserDTO } from "@modules/users/dtos/IFollowUserDTO";
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../repositories/IUsersRepository";
 
@@ -14,7 +15,10 @@ class UnfollowUserService {
         followed_user_id,
     }: IFollowUserDTO): Promise<void> {
         if (user_id === followed_user_id) {
-            throw new AppError("You cannot unfollow yourself");
+            throw new AppError(
+                "You cannot unfollow yourself",
+                HttpStatusCode.FORBIDDEN,
+            );
         }
 
         const currentUser = await this.usersRepository.findById(user_id);
@@ -22,12 +26,20 @@ class UnfollowUserService {
             followed_user_id,
         );
 
-        if (!currentUser) throw new AppError("User Not found", 404);
+        if (!currentUser)
+            throw new AppError("User Not found", HttpStatusCode.UNAUTHORIZED);
 
-        if (!followedUser) throw new AppError("Followed user Not found", 404);
+        if (!followedUser)
+            throw new AppError(
+                "Followed user Not found",
+                HttpStatusCode.NOT_FOUND,
+            );
 
         if (!currentUser.followings.includes(followed_user_id)) {
-            throw new AppError("You do not follow this user", 403);
+            throw new AppError(
+                "You do not follow this user",
+                HttpStatusCode.FORBIDDEN,
+            );
         }
 
         await this.usersRepository.unfollowUser({ followed_user_id, user_id });
