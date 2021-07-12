@@ -3,6 +3,7 @@ import { IUpdateUserDTO } from "@modules/users/dtos/IUpdateUserDTO";
 import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { IUser } from "../infra/mongoose/models/User";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 
 @injectable()
 class UpdateUserService {
@@ -26,7 +27,7 @@ class UpdateUserService {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
-            throw new AppError("User not found", 404);
+            throw new AppError("User not found", HttpStatusCode.UNAUTHORIZED);
         }
 
         if (email) {
@@ -34,7 +35,10 @@ class UpdateUserService {
             const userWithEmail = await this.usersRepository.findByEmail(email);
 
             if (userWithEmail && user.email !== email) {
-                throw new AppError("Email already used!");
+                throw new AppError(
+                    "Email already used!",
+                    HttpStatusCode.CONFLICT,
+                );
             }
         }
 
@@ -44,8 +48,15 @@ class UpdateUserService {
                 nickname,
             );
 
+            if (nickname.includes(" ")) {
+                throw new AppError("Nickname cannot contain spaces");
+            }
+
             if (userWithNickname && user.nickname !== nickname) {
-                throw new AppError("Nickname already used!");
+                throw new AppError(
+                    "Nickname already used!",
+                    HttpStatusCode.CONFLICT,
+                );
             }
         }
 
