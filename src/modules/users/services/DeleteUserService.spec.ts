@@ -1,4 +1,5 @@
 import { AppError } from "@shared/errors/AppError";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 import { FakeHashProvider } from "../providers/HashProvider/fakes/FakeHashProvider";
 import { FakeUsersRepository } from "../repositories/fakes/FakeUsersRepository";
 import CreateUserService from "./CreateUserService";
@@ -38,9 +39,12 @@ describe("DeleteUser", () => {
 
         const deleteUser = new DeleteUserService(usersRepository, hashProvider);
 
+        expect.assertions(1);
         await expect(
-            deleteUser.execute(createdUser._id, "wrong password"),
-        ).rejects.toBeInstanceOf(AppError);
+            deleteUser.execute(createdUser._id, "wrongPassword"),
+        ).rejects.toEqual(
+            new AppError("Wrong Password!", HttpStatusCode.UNAUTHORIZED),
+        );
     });
 
     it("should not be able to delete a non existent user", async () => {
@@ -48,8 +52,11 @@ describe("DeleteUser", () => {
         const usersRepository = new FakeUsersRepository();
         const deleteUser = new DeleteUserService(usersRepository, hashProvider);
 
+        expect.assertions(1);
         await expect(
             deleteUser.execute("fakeId123", "wrong password"),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(
+            new AppError("User not found", HttpStatusCode.UNAUTHORIZED),
+        );
     });
 });
