@@ -3,6 +3,7 @@ import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppError";
 import { IHashProvider } from "@modules/users/providers/HashProvider/models/IHashProvider";
 import { ITokenProvider } from "@modules/users/providers/TokenProvider/models/ITokenProvider";
+import { HttpStatusCode } from "@shared/utils/HttpStatusCode";
 
 interface IRequest {
     email: string;
@@ -42,7 +43,10 @@ export default class AuthenticateUserService {
         const user = await this.usersRepository.findByEmail(email);
 
         if (!user) {
-            throw new AppError("Incorrect email/password combination!", 401);
+            throw new AppError(
+                "Incorrect email/password combination!",
+                HttpStatusCode.UNAUTHORIZED,
+            );
         }
         const hasPasswordMatched = await this.hashProvider.compareHash(
             password,
@@ -50,7 +54,10 @@ export default class AuthenticateUserService {
         );
 
         if (!hasPasswordMatched) {
-            throw new AppError("Incorrect email/password combination!", 401);
+            throw new AppError(
+                "Incorrect email/password combination!",
+                HttpStatusCode.UNAUTHORIZED,
+            );
         }
         const token = this.tokenProvider.generateToken(String(user._id));
 
