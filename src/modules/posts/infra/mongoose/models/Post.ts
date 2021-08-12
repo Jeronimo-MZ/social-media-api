@@ -3,6 +3,7 @@ import { Schema, model } from "mongoose";
 export interface IPost {
     _id: string;
     author_id: string;
+    image?: string;
     content: string;
     likes: string[];
 }
@@ -16,6 +17,11 @@ const PostSchema = new Schema<IPost>(
         content: {
             type: String,
             required: true,
+            max: 500,
+        },
+        image: {
+            type: String,
+            required: false,
             max: 500,
         },
         likes: {

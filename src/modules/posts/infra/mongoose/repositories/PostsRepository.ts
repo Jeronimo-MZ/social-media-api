@@ -5,10 +5,11 @@ import { IPostsRepository } from "@modules/posts/repositories/IPostsRepository";
 import Post, { IPost } from "../models/Post";
 
 class PostsRepository implements IPostsRepository {
-    async create({ user_id, content }: ICreatePostDTO): Promise<IPost> {
+    async create({ user_id, content, image }: ICreatePostDTO): Promise<IPost> {
         const newPost = new Post({
             author_id: user_id,
             content,
+            image,
         });
 
         const post = await newPost.save();
@@ -18,8 +19,13 @@ class PostsRepository implements IPostsRepository {
     async update({
         content,
         post_id,
+        image,
     }: IUpdatePostDTO): Promise<IPost | undefined> {
-        await Post.findByIdAndUpdate(post_id, { content });
+        if (image) {
+            await Post.findByIdAndUpdate(post_id, { content, image });
+        } else {
+            await Post.findByIdAndUpdate(post_id, { content });
+        }
 
         const updatedPost = await Post.findById(post_id, { content });
         return updatedPost?.toObject() || undefined;

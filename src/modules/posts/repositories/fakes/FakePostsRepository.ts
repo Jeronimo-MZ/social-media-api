@@ -11,11 +11,12 @@ class FakePostsRepository implements IPostsRepository {
         this.posts = [];
     }
 
-    async create({ content, user_id }: ICreatePostDTO): Promise<IPost> {
+    async create({ content, user_id, image }: ICreatePostDTO): Promise<IPost> {
         const newPost: IPost = {
             _id: user_id + Math.floor(Math.random() * 10000).toString(),
             author_id: user_id,
             content,
+            image,
             likes: [],
         };
 
@@ -27,6 +28,7 @@ class FakePostsRepository implements IPostsRepository {
     async update({
         content,
         post_id,
+        image,
     }: IUpdatePostDTO): Promise<IPost | undefined> {
         const post = await this.findById(post_id);
 
@@ -34,6 +36,9 @@ class FakePostsRepository implements IPostsRepository {
             return undefined;
         }
         post.content = content;
+        if (image) {
+            post.image = image;
+        }
         return post;
     }
 

@@ -6,6 +6,7 @@ class CreatePostValidator {
         const schema = Yup.object({
             content: Yup.string().required(),
             user_id: Yup.string().required(),
+            image: Yup.string().notRequired(),
         });
 
         try {

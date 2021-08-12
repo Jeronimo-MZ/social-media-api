@@ -34,14 +34,16 @@ describe("UpdatePost", () => {
             content: "new content",
             post_id: post._id,
             author_id: user._id,
+            image: "new_image",
         });
 
         if (!updatedPost) {
-            expect(updatedPost).not.toBeUndefined();
+            expect(updatedPost).toBeTruthy();
             return;
         }
 
-        expect(updatedPost?.content).toBe("new content");
+        expect(updatedPost.content).toBe("new content");
+        expect(updatedPost.image).toBe("new_image");
         expect(await postsRepository.findById(post._id)).toMatchObject(
             updatedPost,
         );

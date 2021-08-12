@@ -25,12 +25,14 @@ describe("CreatePost", () => {
 
         const post = await createPost.execute({
             content: "new Post content",
+            image: "post_image",
             user_id: user._id,
         });
 
         expect(post).toHaveProperty("_id");
         expect(post.author_id).toBe(user._id);
         expect(post.content).toBe("new Post content");
+        expect(post.image).toBe("post_image");
         expect(post.likes.length).toBe(0);
     });
 

@@ -16,6 +16,7 @@ class UpdatePostService {
         author_id,
         post_id,
         content,
+        image,
     }: IUpdatePostDTO): Promise<IPost | undefined> {
         const post = await this.postsRepository.findById(post_id);
 
@@ -34,6 +35,7 @@ class UpdatePostService {
             post_id,
             content,
             author_id,
+            image,
         });
 
         return updatedPost;

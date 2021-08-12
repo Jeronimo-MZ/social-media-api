@@ -7,6 +7,7 @@ class UpdatePostValidator {
             content: Yup.string().required(),
             user_id: Yup.string().required(),
             post_id: Yup.string().required(),
+            image: Yup.string().notRequired(),
         });
 
         try {
