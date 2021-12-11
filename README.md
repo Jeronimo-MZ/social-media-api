@@ -28,7 +28,7 @@ git clone https://github.com/Jeronimo-MZ/social-media-api.git
 Or, if you use a SSH key registered in your GitHub account, clone this repository running:
 
 ```sh
-git git@github.com:Jeronimo-MZ/social-media-api.git
+git clone git@github.com:Jeronimo-MZ/social-media-api.git
 ```
 
 Then install the project dependencies running:
